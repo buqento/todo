@@ -1,7 +1,10 @@
 import React, { useEffect, useRef, useState } from 'react'
-import { useSelector } from 'react-redux'
+import { deleteTodo } from '../store/todos/todos';
+import { useDispatch, useSelector } from 'react-redux'
 
 const Modal = (props) => {
+    const dispatch = useDispatch();
+
     const todos = useSelector(state => state.todos);
 
     const [title, setTitle] = useState('')
@@ -13,6 +16,12 @@ const Modal = (props) => {
         const time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
         const dateTime = date + ' ' + time;
         return dateTime;
+    }
+
+    const newList = (selectItem) => {
+        const list = todos.filter(item => item.id !== selectItem)
+        dispatch(deleteTodo(list))
+        props.onHide()
     }
 
     const wrapperRef = useRef(null);
@@ -98,7 +107,7 @@ const Modal = (props) => {
                                     <div>
                                         {
                                             props.child.status !== 1 &&
-                                            <div className='button-delete'>Delete</div>
+                                            <div className='button-delete' onClick={() => newList(props.child.id)}>Delete</div>
                                         }
                                         <div className='button-done'>
                                             {props.child.status === 1 ? 'Pending' : 'Done'}

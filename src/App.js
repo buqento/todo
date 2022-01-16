@@ -8,7 +8,6 @@ const Page = () => {
   const [showModal, setShowModal] = useState(false)
   const todos = useSelector(state => state.todos);
   const dispatch = useDispatch();
-  console.log(todos);
 
   useEffect(() => {
     getData()

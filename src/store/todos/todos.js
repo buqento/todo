@@ -26,10 +26,7 @@ function todos(state = initData, action) {
                 action.payload
             ];
         case SET_INIT_TODO:
-            return [
-                ...state,
-                action.payload
-            ];
+            return action.payload
         default:
             return state;
     }

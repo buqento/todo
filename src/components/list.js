@@ -9,26 +9,28 @@ const List = ({ data, status, sort }) => {
 
     return (
         <div>
-
-            <div className="container">
-                <h2>{status === 1 ? 'Done' : 'Pending'}</h2>
-                {
-                    data
-                        .filter(item => item.status === status)
-                        .sort((a, b) =>
-                            sort === 'asc' ? dateTime(a.createdAt) - dateTime(b.createdAt)
-                                : dateTime(b.createdAt) - dateTime(a.createdAt)
-                        )
-                        .map((item, index) => (
-                            <div key={index} onClick={() => {
-                                setShowDetail(true);
-                                setSelectItem(item);
-                            }}>
-                                <Card item={item} />
-                            </div>
-                        ))
-                }
-            </div>
+            {
+                data.filter(item => item.status === status).length > 0 &&
+                <div className="container">
+                    <h2>{status === 1 ? 'Done' : 'Pending'}</h2>
+                    {
+                        data
+                            .filter(item => item.status === status)
+                            .sort((a, b) =>
+                                sort === 'asc' ? dateTime(a.createdAt) - dateTime(b.createdAt)
+                                    : dateTime(b.createdAt) - dateTime(a.createdAt)
+                            )
+                            .map((item, index) => (
+                                <div key={index} onClick={() => {
+                                    setShowDetail(true);
+                                    setSelectItem(item);
+                                }}>
+                                    <Card item={item} />
+                                </div>
+                            ))
+                    }
+                </div>
+            }
             <Modal
                 show={showDetail}
                 onHide={() => setShowDetail(false)}

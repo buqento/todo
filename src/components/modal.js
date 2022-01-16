@@ -1,9 +1,19 @@
 import React, { useEffect, useRef, useState } from 'react'
+import { useSelector } from 'react-redux'
 
 const Modal = (props) => {
+    const todos = useSelector(state => state.todos);
 
     const [title, setTitle] = useState('')
     const [description, setDescription] = useState('')
+
+    const currentDateTime = () => {
+        const today = new Date();
+        const date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
+        const time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+        const dateTime = date + ' ' + time;
+        return dateTime;
+    }
 
     const wrapperRef = useRef(null);
     const useOutsideAlerter = (ref) => {
@@ -52,17 +62,17 @@ const Modal = (props) => {
                                                 onChange={e => setDescription(e.target.value)}
                                                 value={description}
                                             />
-
                                         </div>
                                     </div>
                                     <div>
                                         <div className='button-done' onClick={() =>
                                             props.handleAddNew(
                                                 {
-                                                    id: 1,
+                                                    id: todos.length + 1,
                                                     title: title,
                                                     description: description,
-                                                    createdAt: '2019-11-15 04:00'
+                                                    createdAt: currentDateTime(),
+                                                    status: 0
                                                 }
                                             )
                                         }>Save</div>

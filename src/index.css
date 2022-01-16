@@ -14,6 +14,23 @@ code {
   margin: 16px;
 }
 
+.flex-between {
+  display: flex;
+  justify-content: space-between;
+}
+
+.button-add-new {
+  color: white;
+  font-weight: bold;
+  padding: 16px;
+  border: solid 1px #999;
+  background-color: green;
+  border-radius: 4px;
+  margin: 16px;
+  cursor: pointer;
+  text-align: center;
+}
+
 .button-delete {
   font-weight: bold;
   padding: 8px;
@@ -34,4 +51,32 @@ code {
   margin: 4px 0px;
   cursor: pointer;
   text-align: center;
+}
+
+.card {
+  border: solid 1px #888;
+  border-radius: 4px;
+  margin: 16px 0px;
+  padding: 16px;
+}
+
+.modal-container {
+  background-color: rgba(0, 0, 0, 0.75);
+  z-index: 60;
+  justify-content: center;
+}
+
+.modal-body {
+  bottom: 0;
+  position: fixed;
+  background-color: #555;
+  color: white;
+  padding: 16px;
+  width: calc(100vw - 33px);
+  border-radius: 10px 10px 0px 0px;
+}
+
+.modal-form {
+  display: flex;
+  justify-content: space-between;
 }

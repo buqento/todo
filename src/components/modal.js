@@ -24,29 +24,17 @@ const Modal = (props) => {
 
     if (!props.show) { return null }
     return (
-        <div style={{
-            backgroundColor: 'rgba(0,0,0,.75)',
-            zIndex: '60',
-            justifyContent: 'center'
-        }}>
-            <div ref={wrapperRef} style={{
-                bottom: '0',
-                position: 'fixed',
-                backgroundColor: '#555',
-                color: 'white',
-                padding: '16px',
-                width: 'calc(100vw - 33px)',
-                borderRadius: '10px 10px 0px 0px'
-            }}>
+        <div className='modal-container'>
+            <div ref={wrapperRef} className='modal-body'>
                 {
                     props.addNew ?
                         <div>
-                            <h4>Add New</h4>
+                            <div className='flex-between'>
+                                <h4>Add New</h4>
+                                <span onClick={props.onHide}><u>Close</u></span>
+                            </div>
                             <form>
-                                <div style={{
-                                    display: 'flex',
-                                    justifyContent: 'space-between'
-                                }}>
+                                <div className='modal-form'>
 
                                     <div>
                                         <div>
@@ -87,18 +75,12 @@ const Modal = (props) => {
                         :
                         <div>
 
-                            <div style={{
-                                display: 'flex',
-                                justifyContent: 'space-between'
-                            }}>
+                            <div className='flex-between'>
                                 <h4>{props.child.title}</h4>
-                                <span onClick={props.onHide} style={{ textDecoration: 'underline' }}>Close</span>
+                                <span onClick={props.onHide}><u>Close</u></span>
                             </div>
                             <div>
-                                <div style={{
-                                    display: 'flex',
-                                    justifyContent: 'space-between'
-                                }}>
+                                <div className='flex-between'>
                                     <div>
                                         <p>{props.child.description}</p>
                                         <p>{props.child.createdAt}</p>

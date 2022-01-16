@@ -29,7 +29,7 @@ const Page = () => {
   return (
     <div>
       <div>
-        <div className="button-done" onClick={() => setShowModal(true)}>Add New</div>
+        <div className="button-add-new" onClick={() => setShowModal(true)}>Add New</div>
         <List status={0} data={data} sort="asc" />
         <List status={1} data={data} sort="desc" />
       </div>

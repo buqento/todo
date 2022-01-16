@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react'
-import { deleteTodo } from '../store/todos/todos';
+import { deleteTodo, updateTodo } from '../store/todos/todos';
 import { useDispatch, useSelector } from 'react-redux'
 
 const Modal = (props) => {
@@ -24,6 +24,18 @@ const Modal = (props) => {
         props.onHide()
     }
 
+    const updateList = (selectItem, status) => {
+        const objIndex = todos.findIndex(item => item.id === selectItem)
+        const updateObj = { ...todos[objIndex], status: status }
+        const list = [
+            ...todos.slice(0, objIndex),
+            updateObj,
+            ...todos.slice(objIndex + 1)
+        ]
+        dispatch(updateTodo(list))
+        props.onHide()
+    }
+
     const wrapperRef = useRef(null);
     const useOutsideAlerter = (ref) => {
         useEffect(() => {
@@ -42,6 +54,7 @@ const Modal = (props) => {
     useOutsideAlerter(wrapperRef);
 
     if (!props.show) { return null }
+
     return (
         <div className='modal-container'>
             <div ref={wrapperRef} className='modal-body'>
@@ -107,11 +120,15 @@ const Modal = (props) => {
                                     <div>
                                         {
                                             props.child.status !== 1 &&
-                                            <div className='button-delete' onClick={() => newList(props.child.id)}>Delete</div>
+                                            <div>
+                                                <div className='button-delete' onClick={() => newList(props.child.id)}>Delete</div>
+                                                <div className='button-done' onClick={() => updateList(props.child.id, 1)}>Done</div>
+                                            </div>
                                         }
-                                        <div className='button-done'>
-                                            {props.child.status === 1 ? 'Pending' : 'Done'}
-                                        </div>
+                                        {
+                                            props.child.status === 1 &&
+                                            <div className='button-done' onClick={() => updateList(props.child.id, 0)}>Pending</div>
+                                        }
                                     </div>
                                 </div>
 
